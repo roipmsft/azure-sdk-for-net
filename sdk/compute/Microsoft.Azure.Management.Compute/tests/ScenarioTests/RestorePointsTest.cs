@@ -183,7 +183,7 @@ namespace Microsoft.Azure.Management.Compute.Tests.ScenarioTests
         {
             rpc.Tags = tags;
             RestorePointCollectionUpdate updateRpc = new RestorePointCollectionUpdate(
-                tags, rpc.Source, new List<RestorePoint>());
+                tags, rpc.Source);
             m_CrpClient.RestorePointCollections.Update(rgName, rpcName, updateRpc);
         }
 
@@ -265,8 +265,9 @@ namespace Microsoft.Azure.Management.Compute.Tests.ScenarioTests
         private RestorePointCollection CreateRpc(string sourceVMId, string rpcName,
             string rgName, string location, Dictionary<string, string> tags)
         {
-            Models.SubResource sourceVM = new Models.SubResource(id: sourceVMId);
-            var inputRpc = new RestorePointCollection(location, source: sourceVM, name: rpcName, tags: tags);
+            //Models.SubResource sourceVM = new Models.SubResource(id: sourceVMId);
+            RestorePointCollectionSourceProperties rpcSourceProperties = new RestorePointCollectionSourceProperties(location: location, id: sourceVMId);
+            var inputRpc = new RestorePointCollection(location, source: rpcSourceProperties, name: rpcName, tags: tags);
             RestorePointCollection restorePointCollection =
                 m_CrpClient.RestorePointCollections.CreateOrUpdate(rgName, rpcName,
                 inputRpc);

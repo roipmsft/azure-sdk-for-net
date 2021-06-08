@@ -37,14 +37,18 @@ namespace Microsoft.Azure.Management.Compute.Models
         /// class.
         /// </summary>
         /// <param name="tags">Resource tags</param>
-        /// <param name="source">Reference Id of the VM for which the restore
-        /// points have to be created.</param>
-        /// <param name="restorePoints">Gets a list containing all restore
-        /// points created under this restore point collection.</param>
-        public RestorePointCollectionUpdate(IDictionary<string, string> tags = default(IDictionary<string, string>), SubResource source = default(SubResource), IList<RestorePoint> restorePoints = default(IList<RestorePoint>))
+        /// <param name="provisioningState">The provisioning state of the
+        /// restore point collection.</param>
+        /// <param name="restorePointCollectionId">The unique id of the restore
+        /// point collection.</param>
+        /// <param name="restorePoints">A list containing all restore points
+        /// created under this restore point collection.</param>
+        public RestorePointCollectionUpdate(IDictionary<string, string> tags = default(IDictionary<string, string>), RestorePointCollectionSourceProperties source = default(RestorePointCollectionSourceProperties), string provisioningState = default(string), string restorePointCollectionId = default(string), IList<RestorePoint> restorePoints = default(IList<RestorePoint>))
             : base(tags)
         {
             Source = source;
+            ProvisioningState = provisioningState;
+            RestorePointCollectionId = restorePointCollectionId;
             RestorePoints = restorePoints;
             CustomInit();
         }
@@ -55,18 +59,28 @@ namespace Microsoft.Azure.Management.Compute.Models
         partial void CustomInit();
 
         /// <summary>
-        /// Gets or sets reference Id of the VM for which the restore points
-        /// have to be created.
         /// </summary>
         [JsonProperty(PropertyName = "properties.source")]
-        public SubResource Source { get; set; }
+        public RestorePointCollectionSourceProperties Source { get; set; }
+
+        /// <summary>
+        /// Gets the provisioning state of the restore point collection.
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.provisioningState")]
+        public string ProvisioningState { get; private set; }
+
+        /// <summary>
+        /// Gets the unique id of the restore point collection.
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.restorePointCollectionId")]
+        public string RestorePointCollectionId { get; private set; }
 
         /// <summary>
         /// Gets a list containing all restore points created under this
         /// restore point collection.
         /// </summary>
         [JsonProperty(PropertyName = "properties.restorePoints")]
-        public IList<RestorePoint> RestorePoints { get; set; }
+        public IList<RestorePoint> RestorePoints { get; private set; }
 
     }
 }

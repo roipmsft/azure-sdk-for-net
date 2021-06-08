@@ -13,8 +13,6 @@ namespace Microsoft.Azure.Management.Compute
     using Microsoft.Rest;
     using Microsoft.Rest.Azure;
     using Models;
-    using System.Collections;
-    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -25,7 +23,8 @@ namespace Microsoft.Azure.Management.Compute
     {
             /// <summary>
             /// The operation to create or update the restore point collection. Please
-            /// refer to https://aka.ms/RestorePoints for more details.
+            /// refer to https://aka.ms/RestorePoints for more details. When updating a
+            /// restore point collection, only tags may be modified.
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -47,7 +46,8 @@ namespace Microsoft.Azure.Management.Compute
 
             /// <summary>
             /// The operation to create or update the restore point collection. Please
-            /// refer to https://aka.ms/RestorePoints for more details.
+            /// refer to https://aka.ms/RestorePoints for more details. When updating a
+            /// restore point collection, only tags may be modified.
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -217,7 +217,7 @@ namespace Microsoft.Azure.Management.Compute
             /// <param name='resourceGroupName'>
             /// The name of the resource group.
             /// </param>
-            public static IEnumerable<RestorePointCollection> List(this IRestorePointCollectionsOperations operations, string resourceGroupName)
+            public static IPage<RestorePointCollection> List(this IRestorePointCollectionsOperations operations, string resourceGroupName)
             {
                 return operations.ListAsync(resourceGroupName).GetAwaiter().GetResult();
             }
@@ -234,7 +234,7 @@ namespace Microsoft.Azure.Management.Compute
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<IEnumerable<RestorePointCollection>> ListAsync(this IRestorePointCollectionsOperations operations, string resourceGroupName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<IPage<RestorePointCollection>> ListAsync(this IRestorePointCollectionsOperations operations, string resourceGroupName, CancellationToken cancellationToken = default(CancellationToken))
             {
                 using (var _result = await operations.ListWithHttpMessagesAsync(resourceGroupName, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -313,6 +313,40 @@ namespace Microsoft.Azure.Management.Compute
             public static async Task BeginDeleteAsync(this IRestorePointCollectionsOperations operations, string resourceGroupName, string restorePointCollectionName, CancellationToken cancellationToken = default(CancellationToken))
             {
                 (await operations.BeginDeleteWithHttpMessagesAsync(resourceGroupName, restorePointCollectionName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+            }
+
+            /// <summary>
+            /// Gets the list of restore point collections in a resource group.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='nextPageLink'>
+            /// The NextLink from the previous successful call to List operation.
+            /// </param>
+            public static IPage<RestorePointCollection> ListNext(this IRestorePointCollectionsOperations operations, string nextPageLink)
+            {
+                return operations.ListNextAsync(nextPageLink).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Gets the list of restore point collections in a resource group.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='nextPageLink'>
+            /// The NextLink from the previous successful call to List operation.
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<IPage<RestorePointCollection>> ListNextAsync(this IRestorePointCollectionsOperations operations, string nextPageLink, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.ListNextWithHttpMessagesAsync(nextPageLink, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
             }
 
             /// <summary>

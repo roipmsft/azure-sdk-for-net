@@ -40,7 +40,7 @@ namespace Microsoft.Azure.Management.Compute.Models
         /// <param name="managedDisk">Gets the managed disk details</param>
         /// <param name="diskRestorePoint">Gets the disk restore point
         /// Id.</param>
-        public RestorePointSourceVMOSDisk(OperatingSystemTypes? osType = default(OperatingSystemTypes?), DiskEncryptionSettings encryptionSettings = default(DiskEncryptionSettings), string name = default(string), CachingTypes? caching = default(CachingTypes?), int? diskSizeGB = default(int?), ManagedDiskParameters managedDisk = default(ManagedDiskParameters), ApiEntityReference diskRestorePoint = default(ApiEntityReference))
+        public RestorePointSourceVMOSDisk(string osType = default(string), DiskEncryptionSettings encryptionSettings = default(DiskEncryptionSettings), string name = default(string), CachingTypes? caching = default(CachingTypes?), int? diskSizeGB = default(int?), ManagedDiskParameters managedDisk = default(ManagedDiskParameters), ApiEntityReference diskRestorePoint = default(ApiEntityReference))
         {
             OsType = osType;
             EncryptionSettings = encryptionSettings;
@@ -62,7 +62,7 @@ namespace Microsoft.Azure.Management.Compute.Models
         /// 'Linux'
         /// </summary>
         [JsonProperty(PropertyName = "osType")]
-        public OperatingSystemTypes? OsType { get; set; }
+        public string OsType { get; set; }
 
         /// <summary>
         /// Gets the disk encryption settings.

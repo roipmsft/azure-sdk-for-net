@@ -40,7 +40,6 @@ namespace Microsoft.Azure.Management.Compute.Tests.ScenarioTests
                 string storageAccountForDisksName = TestUtilities.GenerateName(TestPrefix);
                 string availabilitySetName = TestUtilities.GenerateName(TestPrefix);
 
-                ////m_ResourcesClient
                 try
                 {
                     StorageAccount storageAccountForDisks = CreateStorageAccount(rgName, storageAccountForDisksName);
